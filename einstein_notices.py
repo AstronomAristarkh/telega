@@ -1,12 +1,16 @@
 import requests
 from gcn_kafka import Consumer
+import os
+from dotenv import load_dotenv
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+TOKEN = 'TOKEN'
+chat_id = os.getenv('chat_id')
 
-TOKEN = "7587835515:AAGANBs7N9DiLO-hD4slIqEwrBF-v3MOtMs"
-chat_id = ["1088194493"]
-
-consumer = Consumer(client_id='5g8a3hoef77ledgt7kl5ae2ef3',
-                    client_secret='5n5knm0cf1d4u8pfott6iav2b6j593s29au303vrtmljtggkanl')
+consumer = Consumer(client_id=os.getenv('client_id'),
+                    client_secret=os.getenv('client_secret'))
 
 # Subscribe to topics and receive alerts
 consumer.subscribe(['gcn.notices.einstein_probe.wxt.alert'])
